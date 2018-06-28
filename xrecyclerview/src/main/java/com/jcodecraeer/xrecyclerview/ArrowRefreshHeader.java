@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 
 import java.util.Date;
@@ -137,44 +140,47 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 		if (state == mState) return ;
 
 		if (state == STATE_REFRESHING) {	// 显示进度
-			mArrowImageView.clearAnimation();
-			mArrowImageView.setVisibility(View.INVISIBLE);
+			//mArrowImageView.clearAnimation();
+			//mArrowImageView.setVisibility(View.INVISIBLE);
             if(mProgressBar != null)
-			    mProgressBar.setVisibility(View.VISIBLE);
+			   // mProgressBar.setVisibility(View.VISIBLE);
             smoothScrollTo(mMeasuredHeight);
 		} else if(state == STATE_DONE) {
-            mArrowImageView.setVisibility(View.INVISIBLE);
-            if(mProgressBar != null)
-                mProgressBar.setVisibility(View.INVISIBLE);
+            //mArrowImageView.setVisibility(View.INVISIBLE);
+            //if(mProgressBar != null)
+               // mProgressBar.setVisibility(View.INVISIBLE);
         } else {	// 显示箭头图片
-			mArrowImageView.setVisibility(View.VISIBLE);
+			//mArrowImageView.setVisibility(View.VISIBLE);
 			if(mProgressBar != null){
-                mProgressBar.setVisibility(View.INVISIBLE);
+                //mProgressBar.setVisibility(View.INVISIBLE);
             }
 		}
         mHeaderTimeView.setText(friendlyTime(getLastRefreshTime()));
 		switch(state){
             case STATE_NORMAL:
                 if (mState == STATE_RELEASE_TO_REFRESH) {
-                    mArrowImageView.startAnimation(mRotateDownAnim);
+                    //mArrowImageView.startAnimation(mRotateDownAnim);
                 }
                 if (mState == STATE_REFRESHING) {
-                    mArrowImageView.clearAnimation();
+                    //mArrowImageView.clearAnimation();
+
                 }
                 mStatusTextView.setText(R.string.listview_header_hint_normal);
                 break;
             case STATE_RELEASE_TO_REFRESH:
                 if (mState != STATE_RELEASE_TO_REFRESH) {
-                    mArrowImageView.clearAnimation();
-                    mArrowImageView.startAnimation(mRotateUpAnim);
+//                    mArrowImageView.clearAnimation();
+//                    mArrowImageView.startAnimation(mRotateUpAnim);
                     mStatusTextView.setText(R.string.listview_header_hint_release);
                 }
                 break;
             case STATE_REFRESHING:
                 mStatusTextView.setText(R.string.refreshing);
+                Glide.with(getContext()).load(R.drawable.refresh_loading_gif).into(new GlideDrawableImageViewTarget(mArrowImageView));
                 break;
             case STATE_DONE:
                 mStatusTextView.setText(R.string.refresh_done);
+                mArrowImageView.setImageResource(R.drawable.refresh_loading_gif);
                 break;
             default:
 		}
@@ -228,8 +234,12 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
     public void onMove(float delta) {
         if(getVisibleHeight() > 0 || delta > 0) {
             setVisibleHeight((int) delta + getVisibleHeight());
+            if(getVisibleHeight()<mArrowImageView.getMeasuredHeight()){
+                mArrowImageView.setScaleX(((float) getVisibleHeight())/mArrowImageView.getMeasuredHeight());
+                mArrowImageView.setScaleY(((float) getVisibleHeight())/mArrowImageView.getMeasuredHeight());
+            }
             if (mState <= STATE_RELEASE_TO_REFRESH) { // 未处于刷新状态，更新箭头
-                if (getVisibleHeight() > mMeasuredHeight) {
+                if (getVisibleHeight() > mArrowImageView.getMeasuredHeight()) {
                     setState(STATE_RELEASE_TO_REFRESH);
                 }else {
                     setState(STATE_NORMAL);
