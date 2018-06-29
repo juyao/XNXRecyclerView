@@ -14,16 +14,24 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.jcodecraeer.xrecyclerview.BDXRecyclerView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 public class MainActivity extends AppCompatActivity {
-    XRecyclerView mXRecyclerView;
+    BDXRecyclerView mXRecyclerView;
     MyAdapter mMyAdapter;
+    int progress;
     private Handler mHandler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mXRecyclerView.refreshComplete();
+            progress++;
+            if(progress<100){
+                mXRecyclerView.setUpdateMsg(progress+"%正在更新");
+                mHandler.sendEmptyMessageDelayed(0,200);
+            }else{
+                mXRecyclerView.refreshComplete();
+            }
         }
     };
     @Override
@@ -36,10 +44,11 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mXRecyclerView.setLayoutManager(linearLayoutManager);
         mXRecyclerView.setAdapter(mMyAdapter);
-        mXRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        mXRecyclerView.setLoadingListener(new BDXRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-               mHandler.sendEmptyMessageDelayed(0,3000);
+                progress=0;
+               mHandler.sendEmptyMessageDelayed(0,200);
             }
 
             @Override
