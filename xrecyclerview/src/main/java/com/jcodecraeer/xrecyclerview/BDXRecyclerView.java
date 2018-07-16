@@ -52,6 +52,13 @@ public class BDXRecyclerView extends RecyclerView {
     // limit number to call load more
     // 控制多出多少条的时候调用 onLoadMore
     private int limitNumberToCallLoadMore = 1;
+    private String finishText="更新完成";
+
+    public void setFinishText(String finishText) {
+       if(null!=mRefreshHeader){
+           mRefreshHeader.setFinishNotify(finishText);
+       }
+    }
 
     public BDXRecyclerView(Context context) {
         this(context, null);

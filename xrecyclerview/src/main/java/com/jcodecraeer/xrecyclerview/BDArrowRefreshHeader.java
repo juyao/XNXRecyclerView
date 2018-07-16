@@ -29,10 +29,8 @@ public class BDArrowRefreshHeader extends LinearLayout implements BaseRefreshHea
     private SimpleViewSwitcher mProgressBar;
     private TextView mStatusTextView;
     private int mState = STATE_NORMAL;
-
     private TextView mHeaderTimeView;
     private LinearLayout mHeaderRefreshTimeContainer;
-
     private Animation mRotateUpAnim;
     private Animation mRotateDownAnim;
 
@@ -40,6 +38,15 @@ public class BDArrowRefreshHeader extends LinearLayout implements BaseRefreshHea
 
     public int mMeasuredHeight;
     private AVLoadingIndicatorView progressView;
+    private String finishNotify="更新完成";
+
+    public String getFinishNotify() {
+        return finishNotify;
+    }
+
+    public void setFinishNotify(String finishNotify) {
+        this.finishNotify = finishNotify;
+    }
 
     public void destroy(){
         mProgressBar = null;
@@ -192,7 +199,7 @@ public class BDArrowRefreshHeader extends LinearLayout implements BaseRefreshHea
                 mStatusTextView.setText("正在更新");
                 break;
             case STATE_DONE:
-                mStatusTextView.setText("更新完成");
+                mStatusTextView.setText(getFinishNotify());
                 break;
             default:
         }
