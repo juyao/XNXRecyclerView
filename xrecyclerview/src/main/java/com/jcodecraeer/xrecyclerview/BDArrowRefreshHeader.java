@@ -160,14 +160,14 @@ public class BDArrowRefreshHeader extends LinearLayout implements BaseRefreshHea
 
         if (state == STATE_REFRESHING) {	// 显示进度
             mArrowImageView.clearAnimation();
-            mArrowImageView.setVisibility(View.INVISIBLE);
+            mArrowImageView.setVisibility(View.GONE);
             if(mProgressBar != null){
                 //mProgressBar.setVisibility(View.VISIBLE);
             }
 
             smoothScrollTo(mMeasuredHeight);
         } else if(state == STATE_DONE) {
-            mArrowImageView.setVisibility(View.INVISIBLE);
+            mArrowImageView.setVisibility(View.GONE);
             if(mProgressBar != null){
                 mProgressBar.setVisibility(View.INVISIBLE);
             }
