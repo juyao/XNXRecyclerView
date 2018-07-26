@@ -210,12 +210,12 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	public void refreshComplete(){
         mHeaderTimeView.setText(friendlyTime(getLastRefreshTime()));
         saveLastRefreshTime(System.currentTimeMillis());
-        setState(STATE_DONE);
         new Handler().postDelayed(new Runnable(){
             public void run() {
+                setState(STATE_DONE);
                 reset();
             }
-        }, 200);
+        }, 2000);
 	}
 
 	public void setVisibleHeight(int height) {
