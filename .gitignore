@@ -8,3 +8,6 @@
 /build
 /captures
 .externalNativeBuild
+markdown-navigator.xml
+vcs.xml
+profiles_settings.xml
