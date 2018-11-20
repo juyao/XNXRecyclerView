@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         mXRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                mHandler.sendEmptyMessageDelayed(0,100);
+                mHandler.sendEmptyMessageDelayed(0,3000);
             }
 
             @Override
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mXRecyclerView.setGifRes(R.drawable.gif_card_off);
 
 
 

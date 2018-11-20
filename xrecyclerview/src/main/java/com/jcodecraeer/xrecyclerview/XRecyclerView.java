@@ -66,6 +66,7 @@ public class XRecyclerView extends RecyclerView {
         init();
     }
 
+
     private void init() {
         if (pullRefreshEnabled) {
             mRefreshHeader = new ArrowRefreshHeader(getContext());
@@ -882,5 +883,11 @@ public class XRecyclerView extends RecyclerView {
     public interface ScrollAlphaChangeListener{
         void onAlphaChange(int alpha);  /** you can handle the alpha insert it */
         int setLimitHeight(); /** set a height for the begging of the alpha start to change */
+    }
+
+    public void setGifRes(int res){
+        if(mRefreshHeader!=null){
+            mRefreshHeader.setGifResource(res);
+        }
     }
 }

@@ -44,7 +44,18 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	public int mMeasuredHeight;
     private AVLoadingIndicatorView progressView;
 
-	public void destroy(){
+    private int gifResource=-1;
+
+    public int getGifResource() {
+        return gifResource;
+    }
+
+    public void setGifResource(int gifResource) {
+        this.gifResource = gifResource;
+        mArrowImageView.setImageResource(gifResource);
+    }
+
+    public void destroy(){
         mProgressBar = null;
         if(progressView != null){
             progressView.destroy();
@@ -176,11 +187,21 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
                 break;
             case STATE_REFRESHING:
                 mStatusTextView.setText(R.string.refreshing);
-                Glide.with(getContext()).load(R.drawable.refresh_loading_gif).into(new GlideDrawableImageViewTarget(mArrowImageView));
+                if(gifResource<0){
+                    Glide.with(getContext()).load(R.drawable.refresh_loading_gif).into(new GlideDrawableImageViewTarget(mArrowImageView));
+                }else{
+                    Glide.with(getContext()).load(gifResource).into(new GlideDrawableImageViewTarget(mArrowImageView));
+                }
+
                 break;
             case STATE_DONE:
                 mStatusTextView.setText(R.string.refresh_done);
-                mArrowImageView.setImageResource(R.drawable.refresh_loading_gif);
+                if(gifResource<0){
+                    mArrowImageView.setImageResource(R.drawable.refresh_loading_gif);
+                }else{
+                    mArrowImageView.setImageResource(gifResource);
+                }
+
                 break;
             default:
 		}
