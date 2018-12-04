@@ -890,4 +890,9 @@ public class XRecyclerView extends RecyclerView {
             mRefreshHeader.setGifResource(res);
         }
     }
+    public void setLoadingSize(int width,int height){
+        if(mRefreshHeader!=null){
+            mRefreshHeader.setLoadingImgSize(width, height);
+        }
+    }
 }

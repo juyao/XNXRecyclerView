@@ -15,6 +15,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -348,6 +349,18 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
             return ct / 2592000 + "月前";
         }
         return ct / 31104000 + "年前";
+    }
+
+    /**
+     * 设置loading图片的尺寸
+     */
+    public void setLoadingImgSize(int width,int height){
+        if(mArrowImageView!=null){
+            RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) mArrowImageView.getLayoutParams();
+            lp.width=width;
+            lp.height=height;
+            mArrowImageView.setLayoutParams(lp);
+        }
     }
 
 }

@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mXRecyclerView.setGifRes(R.drawable.gif_card_off);
+        mXRecyclerView.setGifRes(R.drawable.gif_loan_refresh);
+        mXRecyclerView.setLoadingSize(200, 200);
 
 
 
