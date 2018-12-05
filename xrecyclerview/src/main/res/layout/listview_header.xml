@@ -61,13 +61,13 @@
             <!--android:src="@drawable/ic_pulltorefresh_arrow" />-->
         <ImageView
             android:id="@+id/listview_header_arrow"
-            android:layout_width="83dp"
-            android:layout_height="65dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="10dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/refresh_loading_gif"
+            android:src="@drawable/gif_loan_refresh"
             android:scaleType="fitXY"/>
 
         <com.jcodecraeer.xrecyclerview.SimpleViewSwitcher
