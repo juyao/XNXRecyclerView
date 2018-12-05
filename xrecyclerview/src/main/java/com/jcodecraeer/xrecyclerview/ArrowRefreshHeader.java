@@ -189,7 +189,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
             case STATE_REFRESHING:
                 mStatusTextView.setText(R.string.refreshing);
                 if(gifResource<0){
-                    Glide.with(getContext()).load(R.drawable.refresh_loading_gif).into(new GlideDrawableImageViewTarget(mArrowImageView));
+                    Glide.with(getContext()).load(R.drawable.gif_loan_refresh).into(new GlideDrawableImageViewTarget(mArrowImageView));
                 }else{
                     Glide.with(getContext()).load(gifResource).into(new GlideDrawableImageViewTarget(mArrowImageView));
                 }
@@ -198,7 +198,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
             case STATE_DONE:
                 mStatusTextView.setText(R.string.refresh_done);
                 if(gifResource<0){
-                    mArrowImageView.setImageResource(R.drawable.refresh_loading_gif);
+                    mArrowImageView.setImageResource(R.drawable.loan_refresh);
                 }else{
                     mArrowImageView.setImageResource(gifResource);
                 }

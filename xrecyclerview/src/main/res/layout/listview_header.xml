@@ -67,7 +67,7 @@
             android:layout_marginLeft="35dp"
             android:layout_marginRight="10dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/gif_loan_refresh"
+            android:src="@drawable/loan_refresh"
             android:scaleType="fitXY"/>
 
         <com.jcodecraeer.xrecyclerview.SimpleViewSwitcher
