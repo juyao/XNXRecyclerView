@@ -27,8 +27,19 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 
     private static final String XR_REFRESH_KEY = "XR_REFRESH_KEY";
     private static final String XR_REFRESH_TIME_KEY = "XR_REFRESH_TIME_KEY";
+    private String[] content={
+                                "网络赌博不可取，盲目借贷上岸难",
+                                "不要以贷养贷，及时止损失利益最大化的途径",
+                                "借款单数多的时候，可以在贷款账单中记账管理",
+                                "信用管家，你信用数据的管家",
+                                "合理的借还款频率，有助于建立良好的个人信用",
+                                "前三位贷款都是内部通道，一般人不告诉!",
+                                "申请3家以上贷款，通过率高达99%"
+    };
+    private int contentIndex=0;
 	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
+	private TextView contentText;
 	private SimpleViewSwitcher mProgressBar;
 	private TextView mStatusTextView;
 	private int mState = STATE_NORMAL;
@@ -75,8 +86,10 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	}
 
 	public void setRefreshTimeVisible(boolean show){
-	    if(mHeaderRefreshTimeContainer != null)
-            mHeaderRefreshTimeContainer.setVisibility(show?VISIBLE:GONE);
+	    if(mHeaderRefreshTimeContainer != null){
+        mHeaderRefreshTimeContainer.setVisibility(show?VISIBLE:GONE);
+      }
+
     }
 
 	private void initView() {
@@ -97,14 +110,16 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 
 		mArrowImageView = (ImageView)findViewById(R.id.listview_header_arrow);
 		mStatusTextView = (TextView)findViewById(R.id.refresh_status_textview);
-
+    contentText=findViewById(R.id.text_content);
         //init the progress view
 		mProgressBar = (SimpleViewSwitcher)findViewById(R.id.listview_header_progressbar);
         progressView = new  AVLoadingIndicatorView(getContext());
         progressView.setIndicatorColor(0xffB5B5B5);
         progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);
-        if(mProgressBar != null)
-            mProgressBar.setView(progressView);
+        if(mProgressBar != null){
+          mProgressBar.setView(progressView);
+        }
+
 
 		mRotateUpAnim = new RotateAnimation(0.0f, -180.0f,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -181,6 +196,10 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
             case STATE_DONE:
                 mStatusTextView.setText(R.string.refresh_done);
                 mArrowImageView.setImageResource(R.drawable.refresh_loading_gif);
+              contentIndex++;
+              if(contentIndex>content.length-1){
+                contentIndex=0;
+              }
                 break;
             default:
 		}
@@ -211,7 +230,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         mHeaderTimeView.setText(friendlyTime(getLastRefreshTime()));
         saveLastRefreshTime(System.currentTimeMillis());
         new Handler().postDelayed(new Runnable(){
-            public void run() {
+            @Override public void run() {
                 setState(STATE_DONE);
                 reset();
             }
@@ -237,6 +256,10 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
             if(getVisibleHeight()<mArrowImageView.getMeasuredHeight()){
                 mArrowImageView.setScaleX(((float) getVisibleHeight())/mArrowImageView.getMeasuredHeight());
                 mArrowImageView.setScaleY(((float) getVisibleHeight())/mArrowImageView.getMeasuredHeight());
+                contentText.setVisibility(View.INVISIBLE);
+            }else{
+              contentText.setVisibility(View.VISIBLE);
+              contentText.setText(content[contentIndex]);
             }
             if (mState <= STATE_RELEASE_TO_REFRESH) { // 未处于刷新状态，更新箭头
                 if (getVisibleHeight() > mArrowImageView.getMeasuredHeight()) {
@@ -278,7 +301,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
     public void reset() {
         smoothScrollTo(0);
         new Handler().postDelayed(new Runnable() {
-            public void run() {
+            @Override public void run() {
                 setState(STATE_NORMAL);
             }
         }, 500);
