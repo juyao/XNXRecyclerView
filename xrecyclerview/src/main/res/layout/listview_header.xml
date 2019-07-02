@@ -10,12 +10,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp">
         <ImageView
             android:id="@+id/listview_header_arrow"
-            android:layout_width="83dp"
-            android:layout_height="65dp"
+            android:layout_width="66dp"
+            android:layout_height="52dp"
             android:src="@drawable/refresh_loading_gif"
             android:scaleType="fitXY"/>
         <TextView
@@ -24,7 +23,6 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:textSize="12sp"
-            android:layout_marginTop="2dp"
             android:text=""
             android:visibility="invisible"/>
     </LinearLayout>
